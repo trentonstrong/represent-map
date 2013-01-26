@@ -14,7 +14,7 @@ include_once "header.php";
     Create a map for your startup community!
     https://github.com/abenzer/represent-map
     -->
-    <title>represent.la - map of the Los Angeles startup community</title>
+    <title>bikemap.la - map of the Los Angeles bicycle community</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta charset="UTF-8">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700|Open+Sans:400,700' rel='stylesheet' type='text/css'>
@@ -165,18 +165,9 @@ include_once "header.php";
         // markers array: name, type (icon), lat, long, description, uri, address
         markers = new Array();
         <?php
-          $types = Array(
-              Array('startup', 'Startups'),
-              Array('accelerator','Accelerators'),
-              Array('incubator', 'Incubators'), 
-              Array('coworking', 'Coworking'), 
-              Array('investor', 'Investors'),
-              Array('service', 'Consulting'),
-              Array('hackerspace', 'Hackerspaces'),
-              Array('event', 'Events'),
-              );
+          
           $marker_id = 0;
-          foreach($types as $type) {
+          foreach($map_types as $type) {
             $places = mysql_query("SELECT * FROM places WHERE approved='1' AND type='$type[0]' ORDER BY title");
             $places_total = mysql_num_rows($places);
             while($place = mysql_fetch_assoc($places)) {
@@ -397,9 +388,10 @@ include_once "header.php";
         </div>
         <div class="left">
           <div class="logo">
-            <a href="./">
-              <img src="images/logo.png" alt="" />
-            </a>
+              <h2><a href="./">
+                BikeMapLA!
+              </a>
+            </h2>
           </div>
           <div class="buttons">
             <a href="#modal_info" class="btn btn-large btn-info" data-toggle="modal"><i class="icon-info-sign icon-white"></i>About this Map</a>
@@ -420,20 +412,8 @@ include_once "header.php";
     <div class="menu" id="menu">
       <ul class="list" id="list">
         <?php
-          $types = Array(
-              Array('startup', 'Startups'),
-              Array('accelerator','Accelerators'),
-              Array('incubator', 'Incubators'), 
-              Array('coworking', 'Coworking'), 
-              Array('investor', 'Investors'),
-              Array('service', 'Consulting'),
-              Array('hackerspace', 'Hackerspaces')
-              );
-          if($show_events == true) {
-            $types[] = Array('event', 'Events'); 
-          }
           $marker_id = 0;
-          foreach($types as $type) {
+          foreach($map_types as $type) {
             if($type[0] != "event") {
               $markers = mysql_query("SELECT * FROM places WHERE approved='1' AND type='$type[0]' ORDER BY title");
             } else {
@@ -556,13 +536,9 @@ include_once "header.php";
               <label class="control-label" for="input01">Company Type</label>
               <div class="controls">
                 <select name="type" id="add_type" class="input-xlarge">
-                  <option value="startup">Startup</option>
-                  <option value="accelerator">Accelerator</option>
-                  <option value="incubator">Incubator</option>
-                  <option value="coworking">Coworking</option>
-                  <option value="investor">VC/Angel</option>
-                  <option value="service">Consulting Firm</option>
-                  <option value="hackerspace">Hackerspace</option>
+                  <?php foreach($map_types as $type): ?>
+                    <option value="<?php echo $type[0] ?>"><?php echo $type[1] ?></option>
+                  <?php endforeach; ?>
                 </select>
               </div>
             </div>

@@ -1,22 +1,22 @@
 <?php
 
 // mysql hostname
-$db_host = "";
+$db_host = "127.0.0.1";
 
 // database name
-$db_name = "";
+$db_name = "bikemapla";
 
 // database user name
-$db_user = "";
+$db_user = "root";
 
 // database password
-$db_pass = "";
+$db_pass = "ttt4283RT";
 
 // admin username
-$admin_user = "admin";
+$admin_user = "bikemapla";
 
 // admin password
-$admin_pass = "letsgetmappy";
+$admin_pass = "youresofuckingspecial";
 
 
 // StartupGenome.com integration (optional)
@@ -65,7 +65,7 @@ $sg_enabled = false;
 // category will appear in the marker list, and you can
 // run events_get.php in your browser (or a chron) to populate
 // it with data from eventbrite.
-$show_events = true;
+$show_events = false;
 
     // put your eventbrite api key here
     $eb_app_key = "";
